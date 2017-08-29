@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>vence&#39;s blog</title>
+  <meta name="author" content="vence.w">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vence&#39;s blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/bootstrap.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-86104419-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">vence&#39;s blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives/" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories/" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags/" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about.html" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 <div class="page-header page-header-inverse ">
+  <h1 class="title title-inverse ">vence&#39;s blog</h1>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<div class="slogan">
+      <i class="fa fa-heart"></i>
+      welcome!
+</div>    
+		<div id="top_search"></div>
+		<div class="mypage">
+		
+		<!-- title and entry -->
+        <!-- render top articles firstly -->
+        
+		
+            
+		
+            
+		
+            
+		
+        
+        <!-- render other articles -->
+        
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-04-01 </div>
+			<div class="article-title"><a href="/2017/04/01/Docker的构建/" >Docker的构建</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="Docker系统的构建"><a href="#Docker系统的构建" class="headerlink" title="Docker系统的构建"></a>Docker系统的构建</h1><p>本文主要介绍的要点有：docker的安装配置， 私有仓库register的搭建和使用。  </p>
+<p>Docker自2017/3/1后，分为了CE(community edition, 社区版本)，EE(enterprise edition, 企业版本)。<br>如果之前安装过其他版本，需要卸载后重新安装。 安装方式有2种， 这里介绍通过仓库安装</p>
+<h2 id="Docker的安装配置"><a href="#Docker的安装配置" class="headerlink" title="Docker的安装配置"></a>Docker的安装配置</h2><h3 id="添加仓库"><a href="#添加仓库" class="headerlink" title="添加仓库"></a>添加仓库</h3><ol>
+<li><p>添加基于https的apt仓库(jessie or stretch)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install \</div><div class="line">     apt-transport-https \</div><div class="line">     ca-certificates \</div><div class="line">     curl \</div><div class="line">     software-properties-common</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加docker官方的GPG密钥<br>验证钥匙ID是9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -</div><div class="line">$ sudo apt-key fingerprint 0EBFCD88</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加稳定版本的仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sudo add-apt-repository \</div><div class="line">   &quot;deb [arch=amd64] https://download.docker.com/linux/debian \</div><div class="line">   $(lsb_release -cs) \</div><div class="line">   stable&quot;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="安装Docker-CE"><a href="#安装Docker-CE" class="headerlink" title="安装Docker CE"></a>安装Docker CE</h3><ol>
+<li><p>安装软件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get update</div><div class="line">$ sudo apt-get install docker-ce</div><div class="line">// 查看可用版本</div><div class="line">$ apt-cache madison docker-ce </div><div class="line">// 安装指定版本</div><div class="line">$ sudo apt-get install docker-ce=&lt;VERSION_STRING&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>测试docker运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run hello-world</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ol>
+<li><p>非root用户运行docker </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 查看是否有docker用户组， 没有则添加</div><div class="line">$ sudo cat /etc/group</div><div class="line">$ sudo groupadd docker</div><div class="line">// 为当前用户添加docker组， 注销后生效</div><div class="line">$ sudo gpasswd -a $&#123;USER&#125; docker</div></pre></td></tr></table></figure>
+</li>
+<li><p>开机启动docker服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># systemctl enable docker.service</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="错误处理：docker容器在电脑重启后无法自动启动"><a href="#错误处理：docker容器在电脑重启后无法自动启动" class="headerlink" title="错误处理：docker容器在电脑重启后无法自动启动"></a>错误处理：docker容器在电脑重启后无法自动启动</h3><p>查看docker的系统日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cat /var/log/daemon.log | grep docker</div></pre></td></tr></table></figure></p>
+<p>问题的原因是由于系统启动是没有/etc/resolv.conf文件。<br>/etc/resolv.conf文件是/var/run/NetworkManager/resolv.conf的链接， 而该文件在NetworkManager链接网络成功前是没有的，就是用户登陆，并链接网络成功之前都没有。  </p>
+<p>所以修改NetworkManager的配置文件/etc/NetworkManager/NetworkManager.conf，添加dns=none配置，禁止NetworkManager修改/etc/resolv.conf文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/NetworkManager/NetworkManager.conf </div><div class="line">[main]</div><div class="line">plugins=ifupdown,keyfile</div><div class="line">dns=none</div><div class="line"></div><div class="line">[ifupdown]</div><div class="line">managed=false</div></pre></td></tr></table></figure></p>
+<p>删除之前的链接文件，添加静态的NDS配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/resolv.conf </div><div class="line">nameserver 8.8.8.8</div><div class="line">nameserver 8.8.4.4</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>参考地址：<br><a href="https://docs.docker.com/engine/installation/linux/debian/" target="_blank" rel="external">https://docs.docker.com/engine/installation/linux/debian/</a> </p>
+</blockquote>
+<h2 id="私有仓库register的搭建和使用"><a href="#私有仓库register的搭建和使用" class="headerlink" title="私有仓库register的搭建和使用"></a>私有仓库register的搭建和使用</h2><ol>
+<li><p>启动registry服务<br>老版本的仓库数据位置是<code>/tmp/registry</code>， 实际证明新版本的位置是<code>/var/lib/registry</code>。 使用宿主机的一个目录存储私有仓库的数据。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker run -d \</div><div class="line">  --name mregister \</div><div class="line">  -p 5000:5000 \</div><div class="line">  -v /path/to/host/dir:/var/lib/registry \</div><div class="line">  registry</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看本地仓库中的镜像以及标签信息<br>查看镜像列表， 在浏览器中访问<code>http://localhost:5000/v2/_catalog</code>。 查看标签信息， 比如debian镜像的标签，查看下列目录：<br>docker/registry/v2/repositories/debian/_manifests/tags/</p>
+</li>
+<li><p>将本地镜像上传到本地仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker tag hello-world localhost:5000/hello-world</div><div class="line">$ docker push localhost:5000/hello-world</div></pre></td></tr></table></figure>
+</li>
+<li><p>从本地仓库下载镜像<br>首先要获取本地仓库中镜像的名称和标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker pull localhost:5000/debian:jessie</div><div class="line">$ docker tag localhost:5000/debian:jessie debian:jessie</div><div class="line">$ docker rmi localhost:5000/debian:jessie</div></pre></td></tr></table></figure>
+</li>
+<li><p>删除私有镜像中的数据<br>如果要删除本地仓库中的某个镜像，只需要将v2/repositories/下的目录镜像都删除即可。</p>
+</li>
+</ol>
+<blockquote>
+<p>参考地址：<br><a href="http://blog.csdn.net/u010397369/article/details/42422243" target="_blank" rel="external">Docker搭建本地私有仓库</a></p>
+</blockquote>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-04-01 </div>
+			<div class="article-title"><a href="/2017/04/01/Linux的文件共享/" >Linux的文件共享</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>linux系统中的文件共享常用的有3种: samba(和window交互), nfs(和linux交互), ftp</p>
+<h2 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># aptitude install nfs-kernel-server</div></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/exports</div><div class="line">/home/share        *(rw,sync,no_root_squash)</div><div class="line">$ systemctl restart nfs-server.service</div></pre></td></tr></table></figure>
+<p>修改<code>/etc/exports</code>文件后，需要执行命令<code>exportfs -r</code>。<br>rw sync等之间是不能有空格的，否则报exportfs: /etc/exports:1: syntax error: bad option list</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;输出目录&gt; [客户端1 选项（访问权限,用户映射,其他）] [客户端2 选项（访问权限,用户映射,其他）]</div></pre></td></tr></table></figure>
+<p>配置文件(/etc/exports)格式说明：</p>
+<ul>
+<li><p>访问权限选项。<br>ro(只读), rw(读写)</p>
+</li>
+<li><p>用户映射选项。<br>all_squash：将远程访问的所有普通用户及所属组都映射为匿名用户或用户组（nfsnobody）；<br>no_all_squash：与all_squash取反（默认设置）；<br>root_squash：将root用户及所属组都映射为匿名用户或用户组（默认设置）；<br>no_root_squash：与rootsquash取反；</p>
+</li>
+<li><p>其它选项<br>sync：将数据同步写入内存缓冲区与磁盘中，效率低，但可以保证数据的一致性；适用于实时性要求较高的场景<br>async：将数据先保存在内存缓冲区中，必要时才写入磁盘；提高了响应速度，比如传输大文件。<br>wdelay：检查是否有相关的写操作，如果有则将这些写操作一起执行，这样可以提高效率（默认设置）；<br>no_wdelay：若有写操作则立即执行，应与sync配合使用；<br>subtree：若输出目录是一个子目录，则nfs服务器将检查其父目录的权限(默认设置)；<br>no_subtree：即使输出目录是一个子目录，nfs服务器也不检查其父目录的权限，这样可以提高效率；  </p>
+</li>
+</ul>
+<h3 id="使用测试"><a href="#使用测试" class="headerlink" title="使用测试"></a>使用测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mount 192.168.0.2:/home/vence/Public/share /mnt/nfs</div></pre></td></tr></table></figure>
+<blockquote>
+<p>参考：<br><a href="http://www.cnblogs.com/openusb/p/3309136.html" target="_blank" rel="external">Debian下nfs的安装和配置</a> </p>
+</blockquote>
+<h2 id="SAMBA"><a href="#SAMBA" class="headerlink" title="SAMBA"></a>SAMBA</h2><p>在部署samba的过程中有2点需要特别注意：</p>
+<ol>
+<li>如果之前配置错误， 更正配置后，同时修改一下samba中的名称，及[home]</li>
+<li>如果由于新版本原因导致依赖无法满足， 可以切换源，然后安装</li>
+</ol>
+<h3 id="安装samba服务器"><a href="#安装samba服务器" class="headerlink" title="安装samba服务器"></a>安装samba服务器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># aptitude install samba</div></pre></td></tr></table></figure>
+<h3 id="配置samba"><a href="#配置samba" class="headerlink" title="配置samba"></a>配置samba</h3><p>可以通过testparam检查并输出当前的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># testparam</div><div class="line">[SambaShare]</div><div class="line">        comment = Home Directories</div><div class="line">        path = /path/to/samba/root</div><div class="line">        create mask = 0700            </div><div class="line">        directory mask = 0700         </div><div class="line">        guest ok = Yes                </div><div class="line">        read only = No               </div><div class="line">        valid users = vence</div></pre></td></tr></table></figure></p>
+<h3 id="添加samba用户"><a href="#添加samba用户" class="headerlink" title="添加samba用户"></a>添加samba用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ sudo pdbedit -a username</div><div class="line">$ sudo pdbedit -w -L    查看samba的用户</div><div class="line"></div><div class="line"># systemctl start nmbd.service</div><div class="line"># systemctl start smbd.service</div><div class="line"># systemctl enable nmbd.service</div><div class="line"># systemctl enable smbd.service</div></pre></td></tr></table></figure>
+<h3 id="使用命令行客户端smbclient"><a href="#使用命令行客户端smbclient" class="headerlink" title="使用命令行客户端smbclient"></a>使用命令行客户端smbclient</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ smbclient -U username //localhost/homes</div><div class="line">使用dolphin测试， smb://ip</div></pre></td></tr></table></figure>
+<h2 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h2><p>基本命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">lftp ftp://192.168.0.2 -u user</div><div class="line">基础命令</div><div class="line">&gt; put filename</div><div class="line">&gt; get filename</div></pre></td></tr></table></figure></p>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-03-31 </div>
+			<div class="article-title"><a href="/2017/03/31/hexo/" >hexo</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>HEXO是一个快速，高效的博客框架</p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo init &lt;folder&gt;  //建站</div><div class="line">$ hexo g //生成静态文件</div><div class="line">$ hexo s //启动服务器,  -p 重设端口</div><div class="line">$ hexo d //部署网站</div></pre></td></tr></table></figure>
+<h2 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h2><p>文件的最上方以<code>---</code>分隔的区域，用于指定文件的变量， 这些变量有：layout, title, date, updated, comments(默认true, 开启文章评论功能),<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">title: Hello World</div><div class="line">date : 2017/03/31</div></pre></td></tr></table></figure></p>
+<ol>
+<li>tags, categories<br>标签没有顺序和层次性， 目录具有标签和层次性。 <code>Foo, Bar</code>和<code>Bar, Foo</code>是不同的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">categories:</div><div class="line">- Diary</div><div class="line">tags:</div><div class="line">- Game</div><div class="line">- PS3</div></pre></td></tr></table></figure></li>
+</ol>
+
+	
+	</div>
+</div>
+
+           
+		
+
+		</div>
+
+		<!-- pagination -->
+		<div>
+  		<center>
+		<div class="pagination">
+<ul class="pagination">
+	 
+</ul>
+</div>
+
+  		</center>
+		</div>
+
+		
+		
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar">
+	
+			
+  <div id="site_search">
+   <div class="form-group">
+    <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control"/>
+   </div>  
+  <div id="local-search-result"></div>
+  </div>
+
+
+		
+			
+	<div class="widget">
+		<h4>分类</h4>
+		<ul class="tag_box inline list-unstyled">
+		
+			<li><a href="/categories/docker/">docker<span>1</span></a></li>
+		
+			<li><a href="/categories/linux/">linux<span>1</span></a></li>
+		
+			<li><a href="/categories/misc/">misc<span>1</span></a></li>
+		
+		</ul>
+	</div>
+
+		
+			
+	<div class="widget">
+		<h4>标签云</h4>
+		<ul class="tag_box inline list-unstyled">		
+		
+			<li><a href="/tags/linux/">linux<span>1</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>1</span></a></li>
+		
+			<li><a href="/tags/docker/">docker<span>1</span></a></li>
+		
+			<li><a href="/tags/nfs/">nfs<span>1</span></a></li>
+		
+			<li><a href="/tags/samba/">samba<span>1</span></a></li>
+		
+			<li><a href="/tags/私有仓库/">私有仓库<span>1</span></a></li>
+		
+		 
+		</ul>
+	</div>
+
+
+		
+			
+<div class="widget">
+  <h4>最新文章</h4>
+  <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2017/04/01/Docker的构建/" ><i class="fa fa-file-o"></i>Docker的构建</a>
+      </li>
+    
+      <li>
+        <a href="/2017/04/01/Linux的文件共享/" ><i class="fa fa-file-o"></i>Linux的文件共享</a>
+      </li>
+    
+      <li>
+        <a href="/2017/03/31/hexo/" ><i class="fa fa-file-o"></i>hexo</a>
+      </li>
+    
+  </ul>
+</div>
+
+		
+			
+<div class="widget">
+	<h4>链接</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/wzpan/freemind/" title="Freemind's Github repository." target="_blank"]);">Freemind</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="http://www.github.com/wzpan" title="My Github account." target="_blank"]);">My Github</a></li>
+	
+		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/in/hahack" title="My Linkin account." target="_blank"]);">My LinkedIn</a></li>
+	
+	</ul>
+</div>
+
+
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+	
+</div> <!-- row-fluid -->
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2017 vence.w
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

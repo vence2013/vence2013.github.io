@@ -1,0 +1,299 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux的文件共享 | vence&#39;s blog</title>
+  <meta name="author" content="vence.w">
+  
+  <meta name="description" content="linux系统中的文件共享常用的有3种: samba(和window交互), nfs(和linux交互), ftp
+NFS安装1# aptitude install nfs-kernel-server
+配置123$ cat /etc/exports/home/share        *(rw,sy">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Linux的文件共享"/>
+  <meta property="og:site_name" content="vence&#39;s blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/bootstrap.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-86104419-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">vence&#39;s blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives/" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories/" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags/" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about.html" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header page-header-inverse ">		
+			<h1 class="title title-inverse "> Linux的文件共享</h1>
+		</div>		
+	
+
+
+
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>linux系统中的文件共享常用的有3种: samba(和window交互), nfs(和linux交互), ftp</p>
+<h2 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># aptitude install nfs-kernel-server</div></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat /etc/exports</div><div class="line">/home/share        *(rw,sync,no_root_squash)</div><div class="line">$ systemctl restart nfs-server.service</div></pre></td></tr></table></figure>
+<p>修改<code>/etc/exports</code>文件后，需要执行命令<code>exportfs -r</code>。<br>rw sync等之间是不能有空格的，否则报exportfs: /etc/exports:1: syntax error: bad option list</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;输出目录&gt; [客户端1 选项（访问权限,用户映射,其他）] [客户端2 选项（访问权限,用户映射,其他）]</div></pre></td></tr></table></figure>
+<p>配置文件(/etc/exports)格式说明：</p>
+<ul>
+<li><p>访问权限选项。<br>ro(只读), rw(读写)</p>
+</li>
+<li><p>用户映射选项。<br>all_squash：将远程访问的所有普通用户及所属组都映射为匿名用户或用户组（nfsnobody）；<br>no_all_squash：与all_squash取反（默认设置）；<br>root_squash：将root用户及所属组都映射为匿名用户或用户组（默认设置）；<br>no_root_squash：与rootsquash取反；</p>
+</li>
+<li><p>其它选项<br>sync：将数据同步写入内存缓冲区与磁盘中，效率低，但可以保证数据的一致性；适用于实时性要求较高的场景<br>async：将数据先保存在内存缓冲区中，必要时才写入磁盘；提高了响应速度，比如传输大文件。<br>wdelay：检查是否有相关的写操作，如果有则将这些写操作一起执行，这样可以提高效率（默认设置）；<br>no_wdelay：若有写操作则立即执行，应与sync配合使用；<br>subtree：若输出目录是一个子目录，则nfs服务器将检查其父目录的权限(默认设置)；<br>no_subtree：即使输出目录是一个子目录，nfs服务器也不检查其父目录的权限，这样可以提高效率；  </p>
+</li>
+</ul>
+<h3 id="使用测试"><a href="#使用测试" class="headerlink" title="使用测试"></a>使用测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># mount 192.168.0.2:/home/vence/Public/share /mnt/nfs</div></pre></td></tr></table></figure>
+<blockquote>
+<p>参考：<br><a href="http://www.cnblogs.com/openusb/p/3309136.html" target="_blank" rel="external">Debian下nfs的安装和配置</a> </p>
+</blockquote>
+<h2 id="SAMBA"><a href="#SAMBA" class="headerlink" title="SAMBA"></a>SAMBA</h2><p>在部署samba的过程中有2点需要特别注意：</p>
+<ol>
+<li>如果之前配置错误， 更正配置后，同时修改一下samba中的名称，及[home]</li>
+<li>如果由于新版本原因导致依赖无法满足， 可以切换源，然后安装</li>
+</ol>
+<h3 id="安装samba服务器"><a href="#安装samba服务器" class="headerlink" title="安装samba服务器"></a>安装samba服务器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># aptitude install samba</div></pre></td></tr></table></figure>
+<h3 id="配置samba"><a href="#配置samba" class="headerlink" title="配置samba"></a>配置samba</h3><p>可以通过testparam检查并输出当前的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># testparam</div><div class="line">[SambaShare]</div><div class="line">        comment = Home Directories</div><div class="line">        path = /path/to/samba/root</div><div class="line">        create mask = 0700            </div><div class="line">        directory mask = 0700         </div><div class="line">        guest ok = Yes                </div><div class="line">        read only = No               </div><div class="line">        valid users = vence</div></pre></td></tr></table></figure></p>
+<h3 id="添加samba用户"><a href="#添加samba用户" class="headerlink" title="添加samba用户"></a>添加samba用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ sudo pdbedit -a username</div><div class="line">$ sudo pdbedit -w -L    查看samba的用户</div><div class="line"></div><div class="line"># systemctl start nmbd.service</div><div class="line"># systemctl start smbd.service</div><div class="line"># systemctl enable nmbd.service</div><div class="line"># systemctl enable smbd.service</div></pre></td></tr></table></figure>
+<h3 id="使用命令行客户端smbclient"><a href="#使用命令行客户端smbclient" class="headerlink" title="使用命令行客户端smbclient"></a>使用命令行客户端smbclient</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ smbclient -U username //localhost/homes</div><div class="line">使用dolphin测试， smb://ip</div></pre></td></tr></table></figure>
+<h2 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h2><p>基本命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">lftp ftp://192.168.0.2 -u user</div><div class="line">基础命令</div><div class="line">&gt; put filename</div><div class="line">&gt; get filename</div></pre></td></tr></table></figure></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2017/04/01/Docker的构建/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives/"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2017/03/31/hexo/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+
+    <!-- share -->
+    
+        
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_more" data-cmd="more"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+        <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+        <a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+        <a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a>
+        <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+    </div>
+    <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+
+
+        
+
+    
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2017-04-01 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/linux/">linux<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/linux/">linux<span>1</span></a></li> <li><a href="/tags/samba/">samba<span>1</span></a></li> <li><a href="/tags/nfs/">nfs<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2017 vence.w
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>
